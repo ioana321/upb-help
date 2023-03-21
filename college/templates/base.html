@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UPB Help</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+       <!-- XDSoft DateTimePicker -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+  <div class="sticky-top">
+    <nav class="bg-light">
+      <div class="container text-center bg-light">
+
+            <div class="container-fluid">
+              <h4 class="display-4"><a class="navbar-brand" href="{% url 'college:index' %}">UPB Help</a>
+              </h4>
+            </div>
+
+
+          </div>
+
+              <ul class="nav justify-content-center bg-light">
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'college:index' %}">Home</a>
+                </li>
+
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'college:subject_list' %}">Subjects</a>
+                </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'college:schedule' %}">Schedule</a>
+              </li>
+
+                  <li class="nav-item">
+                <a class="nav-link" href="{% url 'college:exams' %}">Exams</a>
+              </li>
+
+                  <li class="nav-item">
+                <a class="nav-link" href="{% url 'college:grades' %}">Grades</a>
+              </li>
+
+              </ul>
+
+      </nav>
+  </div>
+
+  {% block content %}
+
+  {% endblock content %}
+
+  </body>
+</html>

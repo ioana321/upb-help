@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Create new course</h4>
+<p>Warning! Once you create a course, you cannot modify it.</p>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name="add_course" value="add_course" type="submit">Add course</button>
+</form>
+
+{% endblock content %}

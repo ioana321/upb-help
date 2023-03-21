@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Create new seminar</h4>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name="add_seminar" value="add_seminar" type="submit">Add seminar</button>
+</form>
+
+{% endblock content %}

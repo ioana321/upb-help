@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Set points for {{ activity }}</h4>
+
+<form method="post">
+  {% csrf_token %}
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label for="setPoints" class="col-form-label">Points: </label>
+        </div>
+    <div class="col-auto">
+        <input required type="number" min="0" max="{{activity.points}}" name="points" id="setPoints" class="form-control" aria-describedby="PointsHelpInline">
+    </div>
+    <div class="col-auto">
+        <span id="PointsHelpInline" class="form-text">
+            / {{ activity.points }}
+        </span>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Enter</button>
+
+</form>
+
+
+
+{% endblock content %}

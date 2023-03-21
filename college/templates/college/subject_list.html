@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container text-center">
+
+<h6 class="display-6">Subjects</h6>
+
+
+<div class="btn-group" role="group" aria-label="Add things">
+    <button type="submit" class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_subject' %}'">Add subject</button>
+    <button type="submit" class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_course' %}'">Add course</button>
+    <button type="submit" class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_seminar' %}'">Add seminar</button>
+    <button type="submit" class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_lab' %}'">Add lab</button>
+</div>
+
+    <br>
+    <br>
+
+<div class="list-group">
+
+    {% for subject in subjects %}
+
+        <a href="{% url 'college:subject' subject.id %}" class="list-group-item list-group-item-action">{{ subject.name | upper}}</a>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load grades_tags %}
+
+<style>
+
+    ul {
+  display: table;
+  margin: 0 auto;
+}
+
+</style>
+
+<div class="container text-center">
+    <h6 class="display-6">Grades</h6>
+    <ul class="list-group list-group-flush">
+        {% for subject in subjects %}
+            <li class="list-group-item list-group-item-action">
+                      <div class="row align-items-center">
+                        <div class="col" onclick="window.location.href='{% url 'college:subject' subject.id %}'">
+                            <b>{{ subject }}</b>
+                        </div>
+                          <div class="col">
+                              {% with total=subject|total_points %}
+                                    {{total}}/100 points
+                              {% endwith %}
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{subject.id}}" aria-expanded="false" aria-controls="collapseExample{{subject.id}}">
+                                Details
+                            </button>
+                        </div>
+                      </div>
+
+                    <div class="collapse" id="collapseExample{{subject.id}}">
+                        <div class="card card-body">
+                            <ul>
+                                {% with course=subject|has_course %}
+                                    {% if course %}
+                                        {% if course.points %}
+                                            <li>Course: {{ course.points_earned }}/{{ course.points }} points</li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endwith %}
+                                {% with seminar=subject|has_seminar %}
+                                    {% if seminar %}
+                                        <li>Seminar: {{ seminar.points_earned }}/{{ seminar.points }} points</li>
+                                    {% endif %}
+                                {% endwith %}
+                                {% with lab=subject|has_lab %}
+                                    {% if lab %}
+                                        <li>Lab: {{ lab.points_earned }}/{{ lab.points }} points</li>
+                                    {% endif %}
+                                {% endwith %}
+                                {% for exam in subject.exams.all %}
+                                    {% if exam.done %}
+                                        <li>{{ exam.type }}: {{ exam.points_earned }}/{{ exam.points }} points</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}
