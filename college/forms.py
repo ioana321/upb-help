@@ -1,5 +1,5 @@
 from django import forms
-from .models import Seminar, Subject, Lab, Document
+from .models import Seminar, Subject, Lab, Document, Year
 from .widgets import DateTimePickerInput, DatePickerInput
 
 
@@ -105,3 +105,9 @@ class ExamForm(forms.Form):
                              )
     date = forms.DateField(widget=DatePickerInput())
     points = forms.IntegerField()
+
+class YearForm(forms.ModelForm):
+    class Meta:
+        model = Year
+        fields = ('number',
+                  )

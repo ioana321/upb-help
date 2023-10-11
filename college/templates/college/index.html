@@ -9,11 +9,69 @@
 }
 </style>
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="center">
-    <h1 class="display-1">Placeholder</h1>
+<br>
+<div class="container text-center">
+
+<h5 class="display-5">Welcome!</h5>
+    <h5 class="fs-4">Years added so far:</h5>
+
+
+    <ol class="list-group-flush list-group d-flex justify-content-center">
+
+        {% for year in years %}
+
+        <li class="list-group-item">
+            <div class="ms-2 me-auto">
+                {% with nbr=year.number %}
+                <div class="fw-bold fs-5">YEAR {{ nbr }}</div>
+
+                    <a href="#">Semester 1</a>
+                <br>
+                    <a href="#">Semester 2</a>
+                <br>
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{nbr}}">
+  Delete year
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{nbr}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete year</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this year and all of its subjects?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'college:delete_year' nbr %}'">Yes, I'm sure</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+            </div>
+        </li>
+        {% endwith %}
+        {% endfor %}
+
+        <li class="list-group-item">
+            <div class="ms-2 me-auto">
+                <div class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_year' %}'">Add Year</div>
+            </div>
+        </li>
+
+</ol>
+
+</div>
+
+
 
 
 {% endblock content %}

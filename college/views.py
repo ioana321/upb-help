@@ -2,8 +2,8 @@ import datetime
 
 from django.http import HttpResponseRedirect, FileResponse
 from django.shortcuts import render, redirect
-from .models import Subject, Course, Lab, Seminar, Activity, Document, Exam
-from .forms import SeminarForm, LabForm, SubjectForm, CourseForm, DocumentForm, ModifyCoursesForm, ExamForm
+from .models import Subject, Course, Lab, Seminar, Activity, Document, Exam, Year, Semester
+from .forms import SeminarForm, LabForm, SubjectForm, CourseForm, DocumentForm, ModifyCoursesForm, ExamForm, YearForm
 from .serializers import SeminarSerializer, LabSerializer, SubjectSerializer, CourseSerializer
 from django.urls import reverse
 
@@ -49,7 +49,11 @@ def create(body, type, subject=None):
 
 
 def index(request):
-    return render(request, 'college/index.html')
+    years = Year.objects.all().order_by('number')
+    context = {
+        'years': years,
+    }
+    return render(request, 'college/index.html', context)
 
 
 def subject_list(request):
@@ -589,7 +593,12 @@ def change_exam_state(request, pk):
 
 
 def grades(request):
-    return render(request, 'college/grades.html', {'subjects': Subject.objects.all()})
+    first = Subject.objects.all().first()
+    if first is None:
+        subjects = -1
+    else:
+        subjects = Subject.objects.all()
+    return render(request, 'college/grades.html', {'subjects': subjects})
 
 def set_points(request, activity_name, pk):
     if activity_name == 'seminar':
@@ -616,4 +625,38 @@ def set_points(request, activity_name, pk):
             return HttpResponseRedirect(reverse('college:course', args=(activity.subject.id,)))
 
 
-# de terminat cu punctajele, inca nu apare lista cu pct pt act, + media sem.
+def add_year(request):
+    if (request.method == 'GET'):
+        return render(request,
+                      'college/add_year.html',
+                      {'form': YearForm()},
+                      )
+    elif (request.method == 'POST'):
+        form = YearForm(request.POST)
+        if (form.is_valid()):
+
+            year_no = form.cleaned_data['number']
+            test_year = Year.objects.filter(number=year_no)
+
+            if not test_year:
+                year = Year(number=year_no)
+                year.save()
+
+                semester_one = Semester.objects.create(count=1, year=year)
+                semester_one = semester_one.save()
+
+                semester_two = Semester.objects.create(count=2, year=year)
+                semester_two = semester_two.save()
+
+                return HttpResponseRedirect(reverse('college:index'))
+            else:
+                return render(request,
+                              'college/add_year.html',
+                              {'form': YearForm()},
+                              )
+def delete_year(request, number):
+    year = Year.objects.get(number=number)
+    year.delete()
+    return HttpResponseRedirect(reverse('college:index'))
+
+#mai ramane doar de asociat ani si semestre cu materii

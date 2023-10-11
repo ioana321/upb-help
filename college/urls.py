@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views import index, subject_list, subject, seminar, lab, course, add_seminar, add_lab, add_subject, schedule, \
     add_course, delete_course, delete_lab, delete_subject, delete_seminar, modify_subject, modify_seminar, modify_lab, \
     upload_file, open_file, delete_file, modify_course, exams, add_exam, delete_exam, modify_exam, change_exam_state, \
-    set_points, grades
+    set_points, grades, add_year, delete_year
 
 app_name = 'college'
 
@@ -36,4 +36,6 @@ urlpatterns = [
     path('change_exam_state/<int:pk>/', change_exam_state, name='change_exam_state'),
     path('<str:activity_name>/<int:pk>/set_points/', set_points, name='set_points'),
     path('grades/', grades, name='grades'),
+    path('add_year/', add_year, name='add_year'),
+    path('delete_year/<int:number>', delete_year, name='delete_year'),
     ]

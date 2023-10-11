@@ -15,6 +15,20 @@
 
 <div class="container text-center">
     <h6 class="display-6">Grades</h6>
+
+    {% if subjects == -1 %}
+    <br>
+        <h4>
+            There are no subjects yet, very empty :(
+        </h4>
+    <br>
+        <li class="list-group-item">
+            <div class="ms-2 me-auto">
+                <div class="btn btn-outline-primary" onclick="window.location.href='{% url 'college:add_subject' %}'">Add Subject</div>
+            </div>
+        </li>
+    {% else %}
+
     <h4>Semester average:
         {% with avg=subjects|average %}
             {{avg}}
@@ -70,6 +84,10 @@
             </li>
         {% endfor %}
     </ul>
+
+    {% endif %}
+
+
 </div>
 
 {% endblock content %}

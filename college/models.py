@@ -6,11 +6,32 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 # Create your models here.
 
+class Year(models.Model):
+    number = models.PositiveSmallIntegerField()
+    def __str__(self):
+        return 'Year ' + str(self.number)
+
+
+class Semester(models.Model):
+    count = models.PositiveSmallIntegerField(null=True)
+    year = models.ForeignKey(Year,
+                             related_name='semesters',
+                             default=0,
+                             on_delete=models.CASCADE
+                             )
+    def __str__(self):
+        return 'Year ' + str(self.year.number) + ' Sem ' + str(self.count)
+
 class Subject(models.Model):
     name = models.CharField(max_length=150)
     professor = models.CharField(max_length=150)
     credit_points = models.PositiveSmallIntegerField()
     points_earned = models.IntegerField(default=0)
+    # semester = models.ForeignKey(Semester,
+    #                              related_name='subjects',
+    #                              blank=True,
+    #                              on_delete=models.CASCADE
+    #                              )
     def __str__(self):
         return self.name
 
