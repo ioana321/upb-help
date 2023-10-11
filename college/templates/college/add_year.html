@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Add year</h4>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name="add_year" value="add_year" type="submit">Add year</button>
+</form>
+
+{% endblock content %}
